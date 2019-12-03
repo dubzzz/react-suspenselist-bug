@@ -153,14 +153,22 @@ function ScenarioB() {
 
 function App() {
   return (
-    <div style={{ display: "flex" }}>
-      <div style={{ flexGrow: 1 }}>
-        <ScenarioA />
+    <>
+      <div style={{ display: "flex" }}>
+        <div style={{ flexGrow: 1 }}>
+          <ScenarioA />
+        </div>
+        <div style={{ flexGrow: 1 }}>
+          <ScenarioB />
+        </div>
       </div>
-      <div style={{ flexGrow: 1 }}>
-        <ScenarioB />
+      <div style={{ textAlign: "center", margin: "2em" }}>
+        This inconsistancy has been discovered thanks to{" "}
+        <a href="https://github.com/dubzzz/fast-check/">
+          <b>fast-check</b>
+        </a>
       </div>
-    </div>
+    </>
   );
 }
 
