@@ -31,6 +31,12 @@ function CompoWithSuspense({ req }) {
 function ScenarioA() {
   const [version, setVersion] = React.useState(1);
 
+  const [, setC] = React.useState(0);
+  const withRerender = f => () => {
+    f();
+    setC(c => c + 1);
+  };
+
   return (
     <div>
       <div>
@@ -53,13 +59,13 @@ function ScenarioA() {
         </p>
       </div>
       <div>
-        <button disabled={A1.isResolved()} onClick={A1.resolve}>
+        <button disabled={A1.isResolved()} onClick={withRerender(A1.resolve)}>
           Resolve A
         </button>
-        <button disabled={B1.isResolved()} onClick={B1.resolve}>
+        <button disabled={B1.isResolved()} onClick={withRerender(B1.resolve)}>
           Resolve B
         </button>
-        <button disabled={C1.isResolved()} onClick={C1.resolve}>
+        <button disabled={C1.isResolved()} onClick={withRerender(C1.resolve)}>
           Resolve C
         </button>
         <button disabled={version === 2} onClick={() => setVersion(2)}>
@@ -87,6 +93,12 @@ function ScenarioA() {
 function ScenarioB() {
   const [version, setVersion] = React.useState(1);
 
+  const [, setC] = React.useState(0);
+  const withRerender = f => () => {
+    f();
+    setC(c => c + 1);
+  };
+
   return (
     <div>
       <div>
@@ -106,13 +118,13 @@ function ScenarioB() {
         <p>Not consistent with the other scenario.</p>
       </div>
       <div>
-        <button disabled={A2.isResolved()} onClick={A2.resolve}>
+        <button disabled={A2.isResolved()} onClick={withRerender(A2.resolve)}>
           Resolve A
         </button>
-        <button disabled={B2.isResolved()} onClick={B2.resolve}>
+        <button disabled={B2.isResolved()} onClick={withRerender(B2.resolve)}>
           Resolve B
         </button>
-        <button disabled={C2.isResolved()} onClick={C2.resolve}>
+        <button disabled={C2.isResolved()} onClick={withRerender(C2.resolve)}>
           Resolve C
         </button>
         <button disabled={version === 2} onClick={() => setVersion(2)}>
