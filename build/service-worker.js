@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/react-suspenselist-bug/build/precache-manifest.22969c24a14ace3bc89a85097a8cad8e.js"
+  "/react-suspenselist-bug/build/precache-manifest.f8ec79d473e8414b2474b6e18de7cc5a.js"
 );
 
 self.addEventListener('message', (event) => {

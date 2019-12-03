@@ -163,6 +163,12 @@ function App() {
         </div>
       </div>
       <div style={{ textAlign: "center", margin: "2em" }}>
+        Source is available at{" "}
+        <a href="https://github.com/dubzzz/react-suspenselist-bug/">
+          https://github.com/dubzzz/react-suspenselist-bug/
+        </a>
+      </div>
+      <div style={{ textAlign: "center", margin: "2em" }}>
         This inconsistancy has been discovered thanks to{" "}
         <a href="https://github.com/dubzzz/fast-check/">
           <b>fast-check</b>
