@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.js": "/react-suspenselist-bug/static/js/main.e97f56d3.chunk.js",
+    "main.js.map": "/react-suspenselist-bug/static/js/main.e97f56d3.chunk.js.map",
+    "runtime-main.js": "/react-suspenselist-bug/static/js/runtime-main.ce2c5f4d.js",
+    "runtime-main.js.map": "/react-suspenselist-bug/static/js/runtime-main.ce2c5f4d.js.map",
+    "static/js/2.9b2c0ee7.chunk.js": "/react-suspenselist-bug/static/js/2.9b2c0ee7.chunk.js",
+    "static/js/2.9b2c0ee7.chunk.js.map": "/react-suspenselist-bug/static/js/2.9b2c0ee7.chunk.js.map",
+    "index.html": "/react-suspenselist-bug/index.html",
+    "precache-manifest.3d2e2050e3192fd4f107b3de9075ddc5.js": "/react-suspenselist-bug/precache-manifest.3d2e2050e3192fd4f107b3de9075ddc5.js",
+    "service-worker.js": "/react-suspenselist-bug/service-worker.js"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ce2c5f4d.js",
+    "static/js/2.9b2c0ee7.chunk.js",
+    "static/js/main.e97f56d3.chunk.js"
+  ]
+}
