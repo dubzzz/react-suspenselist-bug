@@ -169,7 +169,7 @@ function App() {
         </a>
       </div>
       <div style={{ textAlign: "center", margin: "2em" }}>
-        This inconsistancy has been discovered thanks to{" "}
+        Inconsistency discovered thanks to
         <a href="https://github.com/dubzzz/fast-check/">
           <b>fast-check</b>
         </a>
