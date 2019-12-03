@@ -52,7 +52,7 @@ function ScenarioA() {
             Click on <em>See second page</em>
           </li>
         </ul>
-        <p>Got: A / Loading B / Loading C</p>
+        <p>Got: A / A / Loading B / Loading C</p>
         <p>
           C has been marked as loading while it has already been rendered as a
           loaded once.
@@ -79,6 +79,7 @@ function ScenarioA() {
             version === 1
               ? [["C", C1]]
               : [
+                  ["A", A1],
                   ["A", A1],
                   ["B", B1],
                   ["C", C1]
@@ -114,7 +115,7 @@ function ScenarioB() {
             Click on <em>See second page</em>
           </li>
         </ul>
-        <p>Got: Loading A / C</p>
+        <p>Got: Loading A / C / Loading C</p>
         <p>Not consistent with the other scenario.</p>
       </div>
       <div>
@@ -142,6 +143,7 @@ function ScenarioB() {
                 ]
               : [
                   ["A", A2],
+                  ["C", C2],
                   ["C", C2]
                 ]
           }
@@ -169,7 +171,7 @@ function App() {
         </a>
       </div>
       <div style={{ textAlign: "center", margin: "2em" }}>
-        Inconsistency discovered thanks to
+        Inconsistency discovered thanks to{" "}
         <a href="https://github.com/dubzzz/fast-check/">
           <b>fast-check</b>
         </a>
