@@ -8,6 +8,9 @@ function CompoWithSuspense({ version }) {
   return (
     <div>
       <div>Rendering version number: {version}</div>
+      <div>
+        Rendering using <code>SuspenseList</code>:
+      </div>
       <ul>
         {version === 1 ? (
           <SuspenseList key="1" revealOrder="forwards">
@@ -32,6 +35,21 @@ function CompoWithSuspense({ version }) {
             </SuspenseList>
           </SuspenseList>
         )}
+      </ul>
+      <div>
+        Rendering outside of <code>SuspenseList</code> with simple{" "}
+        <code>Suspense</code>:
+      </div>
+      <ul>
+        <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
+          <A />
+        </Suspense>
+        <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
+          <B />
+        </Suspense>
+        <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+          <C />
+        </Suspense>
       </ul>
     </div>
   );
