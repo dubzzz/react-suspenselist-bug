@@ -1,34 +1,43 @@
-import React from "react";
+import React, { Suspense, SuspenseList } from "react";
 
-const A1 = createAsyncText("A");
-const B1 = createAsyncText("B");
-const C1 = createAsyncText("C");
+const A = createAsyncText("A");
+const B = createAsyncText("B");
+const C = createAsyncText("C");
 
-const A2 = createAsyncText("A");
-const B2 = createAsyncText("B");
-const C2 = createAsyncText("C");
-
-function CompoWithSuspense({ req }) {
+function CompoWithSuspense({ version }) {
   return (
     <div>
-      <div>Request: {req.map(e => e[0])}</div>
+      <div>Rendering version number: {version}</div>
       <ul>
-        <React.SuspenseList revealOrder="forwards">
-          {req.map(e => {
-            const [name, Compo] = e;
-            return (
-              <React.Suspense fallback={<Text text={`Loading ${name}`} />}>
-                <Compo />
-              </React.Suspense>
-            );
-          })}
-        </React.SuspenseList>
+        {version === 1 ? (
+          <SuspenseList key="1" revealOrder="forwards">
+            <SuspenseList key="1.1" revealOrder="forwards">
+              <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+                <C />
+              </Suspense>
+            </SuspenseList>
+          </SuspenseList>
+        ) : (
+          <SuspenseList key="1" revealOrder="forwards">
+            <SuspenseList key="1.1" revealOrder="forwards">
+              <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
+                <A />
+              </Suspense>
+              <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
+                <B />
+              </Suspense>
+              <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+                <C />
+              </Suspense>
+            </SuspenseList>
+          </SuspenseList>
+        )}
       </ul>
     </div>
   );
 }
 
-function ScenarioA() {
+function ScenarioC() {
   const [version, setVersion] = React.useState(1);
 
   const [, setC] = React.useState(0);
@@ -37,35 +46,45 @@ function ScenarioA() {
     setC(c => c + 1);
   };
 
+  // Counterexample: [
+  //  {"key":"fd","item":[
+  //    {"key":"08","item":[
+  //      {"key":"81","item":{"value":"3","renderPhase":"b only"}},  // we called it A
+  //      {"key":"dd","item":{"value":"c","renderPhase":"b only"}},  // we called it B
+  //      {"key":"53","item":{"value":"0","renderPhase":"both"}}     // we called it C
+  //    ]}
+  //  ]},Scheduler`
+  // -> [task#1] promise resolved with value "0"
+  // -> [task#4] sequence:: resolved
+  // -> [task#2] promise resolved with value "3"
+  // -> [task#3] promise pending`]
+
   return (
     <div>
       <div>
         Scenario is:
         <ul>
+          <li>
+            Click on <em>Resolve C</em>
+          </li>
+          <li>
+            Click on <em>See second page</em>
+          </li>
           <li>
             Click on <em>Resolve A</em>
           </li>
-          <li>
-            Click on <em>Resolve C</em>
-          </li>
-          <li>
-            Click on <em>See second page</em>
-          </li>
         </ul>
-        <p>Got: A / A / Loading B / Loading C</p>
-        <p>
-          C has been marked as loading while it has already been rendered as a
-          loaded once.
-        </p>
+        <p>Got: Loading A / Loading B / C</p>
+        <p>Expected: A / Loading B / C</p>
       </div>
       <div>
-        <button disabled={A1.isResolved()} onClick={withRerender(A1.resolve)}>
+        <button disabled={A.isResolved()} onClick={withRerender(A.resolve)}>
           Resolve A
         </button>
-        <button disabled={B1.isResolved()} onClick={withRerender(B1.resolve)}>
+        <button disabled={B.isResolved()} onClick={withRerender(B.resolve)}>
           Resolve B
         </button>
-        <button disabled={C1.isResolved()} onClick={withRerender(C1.resolve)}>
+        <button disabled={C.isResolved()} onClick={withRerender(C.resolve)}>
           Resolve C
         </button>
         <button disabled={version === 2} onClick={() => setVersion(2)}>
@@ -74,80 +93,7 @@ function ScenarioA() {
       </div>
       <br />
       <div>
-        <CompoWithSuspense
-          req={
-            version === 1
-              ? [["C", C1]]
-              : [
-                  ["A", A1],
-                  ["A", A1],
-                  ["B", B1],
-                  ["C", C1]
-                ]
-          }
-        />
-      </div>
-    </div>
-  );
-}
-
-function ScenarioB() {
-  const [version, setVersion] = React.useState(1);
-
-  const [, setC] = React.useState(0);
-  const withRerender = f => () => {
-    f();
-    setC(c => c + 1);
-  };
-
-  return (
-    <div>
-      <div>
-        Scenario is:
-        <ul>
-          <li>
-            Click on <em>Resolve B</em>
-          </li>
-          <li>
-            Click on <em>Resolve C</em>
-          </li>
-          <li>
-            Click on <em>See second page</em>
-          </li>
-        </ul>
-        <p>Got: Loading A / C / Loading C</p>
-        <p>Not consistent with the other scenario.</p>
-      </div>
-      <div>
-        <button disabled={A2.isResolved()} onClick={withRerender(A2.resolve)}>
-          Resolve A
-        </button>
-        <button disabled={B2.isResolved()} onClick={withRerender(B2.resolve)}>
-          Resolve B
-        </button>
-        <button disabled={C2.isResolved()} onClick={withRerender(C2.resolve)}>
-          Resolve C
-        </button>
-        <button disabled={version === 2} onClick={() => setVersion(2)}>
-          See second page
-        </button>
-      </div>
-      <br />
-      <div>
-        <CompoWithSuspense
-          req={
-            version === 1
-              ? [
-                  ["B", B2],
-                  ["C", C2]
-                ]
-              : [
-                  ["A", A2],
-                  ["C", C2],
-                  ["C", C2]
-                ]
-          }
-        />
+        <CompoWithSuspense version={version} />
       </div>
     </div>
   );
@@ -158,16 +104,21 @@ function App() {
     <>
       <div style={{ display: "flex" }}>
         <div style={{ flexGrow: 1 }}>
-          <ScenarioA />
-        </div>
-        <div style={{ flexGrow: 1 }}>
-          <ScenarioB />
+          <ScenarioC />
         </div>
       </div>
       <div style={{ textAlign: "center", margin: "2em" }}>
         Source is available at{" "}
         <a href="https://github.com/dubzzz/react-suspenselist-bug/">
           https://github.com/dubzzz/react-suspenselist-bug/
+        </a>
+        <br />
+        <a href="https://github.com/facebook/react/issues/17515#issuecomment-561418297">
+          Version 2
+        </a>
+        , previous version of the page available
+        <a href="https://dubzzz.github.io/react-suspenselist-bug/build-v1/">
+          here
         </a>
       </div>
       <div style={{ textAlign: "center", margin: "2em" }}>

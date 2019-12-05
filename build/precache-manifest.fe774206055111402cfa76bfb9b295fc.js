@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5e8e999bde5b478f969750d501050ead",
+    "revision": "404b71d4a7b20ad8e48345f67d118947",
     "url": "/react-suspenselist-bug/build/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/react-suspenselist-bug/build/static/js/2.9b2c0ee7.chunk.js"
   },
   {
-    "revision": "5041d0f0794b5f47c793",
-    "url": "/react-suspenselist-bug/build/static/js/main.d491b4ba.chunk.js"
+    "revision": "2f868b0c28ff01e8269a",
+    "url": "/react-suspenselist-bug/build/static/js/main.7c1e9d33.chunk.js"
   },
   {
     "revision": "1a0bd1a28ac091676234",
