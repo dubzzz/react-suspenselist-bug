@@ -58,6 +58,23 @@ function ScenarioC() {
   // -> [task#4] sequence:: resolved
   // -> [task#2] promise resolved with value "3"
   // -> [task#3] promise pending`]
+  //
+  // Shrunk 0 time(s)
+  // Got error: Error: expect(received).toEqual(expected) // deep equality
+  //
+  // - Expected
+  // + Received
+  //
+  // @@ -1,8 +1,8 @@
+  //   <React.Fragment>
+  //     <span>
+  // -     3
+  // +     Loading 3
+  //     </span>
+  //     <span>
+  //       Loading c
+  //     </span>
+  //     <span>
 
   return (
     <div>
