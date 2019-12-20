@@ -7,38 +7,46 @@ const C = createAsyncText("C");
 function CompoWithSuspense({ version }) {
   return (
     <div>
-      <div>Rendering version number: {version}</div>
-      <div>
-        Rendering using <code>SuspenseList</code>:
+      <div
+        style={{ border: "dotted 1px black", margin: "1em", padding: "1em" }}
+      >
+        <div>Rendering page number: {version}</div>
+        <div>
+          Rendering using <code>SuspenseList</code>:
+        </div>
+        <ul>
+          {version === 1 ? (
+            <SuspenseList key="1" revealOrder="forwards">
+              <SuspenseList key="1.1" revealOrder="forwards">
+                <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+                  <C />
+                </Suspense>
+              </SuspenseList>
+            </SuspenseList>
+          ) : (
+            <SuspenseList key="1" revealOrder="forwards">
+              <SuspenseList key="1.1" revealOrder="forwards">
+                <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
+                  <A />
+                </Suspense>
+                <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
+                  <B />
+                </Suspense>
+                <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+                  <C />
+                </Suspense>
+              </SuspenseList>
+            </SuspenseList>
+          )}
+        </ul>
       </div>
-      <ul>
-        {version === 1 ? (
-          <SuspenseList key="1" revealOrder="forwards">
-            <SuspenseList key="1.1" revealOrder="forwards">
-              <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-                <C />
-              </Suspense>
-            </SuspenseList>
-          </SuspenseList>
-        ) : (
-          <SuspenseList key="1" revealOrder="forwards">
-            <SuspenseList key="1.1" revealOrder="forwards">
-              <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
-                <A />
-              </Suspense>
-              <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
-                <B />
-              </Suspense>
-              <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-                <C />
-              </Suspense>
-            </SuspenseList>
-          </SuspenseList>
-        )}
-      </ul>
       <div>
         Rendering outside of <code>SuspenseList</code> with simple{" "}
         <code>Suspense</code>:
+      </div>
+      <div>
+        Help to visually check which <code>Components</code> are already
+        resolved
       </div>
       <ul>
         <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
@@ -151,7 +159,7 @@ function App() {
         <a href="https://github.com/facebook/react/issues/17515#issuecomment-561418297">
           Version 2
         </a>
-        , previous version of the page available
+        , previous version of the page available{" "}
         <a href="https://dubzzz.github.io/react-suspenselist-bug/build-v1/">
           here
         </a>
