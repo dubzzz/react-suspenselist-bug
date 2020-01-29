@@ -9,13 +9,13 @@ function NoNestedSuspenseList({ version }) {
     return (
       <>
         <SuspenseList key="1.1" revealOrder="forwards">
-          <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-            <C />
+          <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
+            <A />
           </Suspense>
         </SuspenseList>
         <CodeBlock>{`<SuspenseList key="1.1" revealOrder="forwards">
-  <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-    <C />
+  <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
+    <A />
   </Suspense>
 </SuspenseList>`}</CodeBlock>
       </>
@@ -24,25 +24,25 @@ function NoNestedSuspenseList({ version }) {
   return (
     <>
       <SuspenseList key="1.1" revealOrder="forwards">
-        <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-          <C />
-        </Suspense>
         <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
           <A />
         </Suspense>
         <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
           <B />
         </Suspense>
+        <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+          <C />
+        </Suspense>
       </SuspenseList>
       <CodeBlock>{`<SuspenseList key="1.1" revealOrder="forwards">
-  <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-    <C />
-  </Suspense>
   <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
     <A />
   </Suspense>
   <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
     <B />
+  </Suspense>
+  <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+    <C />
   </Suspense>
 </SuspenseList>`}</CodeBlock>
     </>
@@ -55,15 +55,15 @@ function NestedSuspenseList({ version }) {
       <>
         <SuspenseList key="1" revealOrder="forwards">
           <SuspenseList key="1.1" revealOrder="forwards">
-            <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-              <C />
+            <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
+              <A />
             </Suspense>
           </SuspenseList>
         </SuspenseList>
         <CodeBlock>{`<SuspenseList key="1" revealOrder="forwards">
   <SuspenseList key="1.1" revealOrder="forwards">
-    <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-      <C />
+    <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
+      <A />
     </Suspense>
   </SuspenseList>
 </SuspenseList>`}</CodeBlock>
@@ -74,27 +74,27 @@ function NestedSuspenseList({ version }) {
     <>
       <SuspenseList key="1" revealOrder="forwards">
         <SuspenseList key="1.1" revealOrder="forwards">
-          <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-            <C />
-          </Suspense>
           <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
             <A />
           </Suspense>
           <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
             <B />
           </Suspense>
+          <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+            <C />
+          </Suspense>
         </SuspenseList>
       </SuspenseList>
       <CodeBlock>{`<SuspenseList key="1" revealOrder="forwards">
   <SuspenseList key="1.1" revealOrder="forwards">
-    <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-      <C />
-    </Suspense>
     <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
       <A />
     </Suspense>
     <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
       <B />
+    </Suspense>
+    <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+      <C />
     </Suspense>
   </SuspenseList>
 </SuspenseList>`}</CodeBlock>
@@ -119,17 +119,17 @@ function PageContent() {
       <h2>Steps to reproduce:</h2>
       <ul>
         <li>
-          Click on <em>Resolve C</em>
+          Click on <em>Resolve A</em>
         </li>
         <li>
-          Click on <em>Resolve A</em>
+          Click on <em>Resolve B</em>
         </li>
         <li>
           Click on <em>See second page</em>
         </li>
       </ul>
-      <p>Nested: C / Loading A / Loading B</p>
-      <p>Not Nested: C / A / Loading B</p>
+      <p>Nested: A / Loading B / Loading C</p>
+      <p>Not Nested: A / B / Loading C</p>
 
       <h2>Actions:</h2>
       <div>
