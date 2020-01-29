@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/react-suspenselist-bug/build/static/js/main.9270c018.chunk.js",
-    "main.js.map": "/react-suspenselist-bug/build/static/js/main.9270c018.chunk.js.map",
+    "main.js": "/react-suspenselist-bug/build/static/js/main.f16a72e0.chunk.js",
+    "main.js.map": "/react-suspenselist-bug/build/static/js/main.f16a72e0.chunk.js.map",
     "runtime-main.js": "/react-suspenselist-bug/build/static/js/runtime-main.01110886.js",
     "runtime-main.js.map": "/react-suspenselist-bug/build/static/js/runtime-main.01110886.js.map",
     "static/js/2.8e3aebd5.chunk.js": "/react-suspenselist-bug/build/static/js/2.8e3aebd5.chunk.js",
     "static/js/2.8e3aebd5.chunk.js.map": "/react-suspenselist-bug/build/static/js/2.8e3aebd5.chunk.js.map",
     "index.html": "/react-suspenselist-bug/build/index.html",
-    "precache-manifest.4245ce9e22f2d10dac95a4daa33b3e07.js": "/react-suspenselist-bug/build/precache-manifest.4245ce9e22f2d10dac95a4daa33b3e07.js",
+    "precache-manifest.47a3e3cf89837b5538c3c1d1aed620e1.js": "/react-suspenselist-bug/build/precache-manifest.47a3e3cf89837b5538c3c1d1aed620e1.js",
     "service-worker.js": "/react-suspenselist-bug/build/service-worker.js"
   },
   "entrypoints": [
     "static/js/runtime-main.01110886.js",
     "static/js/2.8e3aebd5.chunk.js",
-    "static/js/main.9270c018.chunk.js"
+    "static/js/main.f16a72e0.chunk.js"
   ]
 }
