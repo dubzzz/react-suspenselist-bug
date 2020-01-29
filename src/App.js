@@ -4,66 +4,105 @@ const A = createAsyncText("A");
 const B = createAsyncText("B");
 const C = createAsyncText("C");
 
-function CompoWithSuspense({ version }) {
+function NoNestedSuspenseList({ version }) {
+  if (version === 1) {
+    return (
+      <>
+        <SuspenseList key="1.1" revealOrder="forwards">
+          <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+            <C />
+          </Suspense>
+        </SuspenseList>
+        <CodeBlock>{`<SuspenseList key="1.1" revealOrder="forwards">
+  <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+    <C />
+  </Suspense>
+</SuspenseList>`}</CodeBlock>
+      </>
+    );
+  }
   return (
-    <div>
-      <div
-        style={{ border: "dotted 1px black", margin: "1em", padding: "1em" }}
-      >
-        <div>Rendering page number: {version}</div>
-        <div>
-          Rendering using <code>SuspenseList</code>:
-        </div>
-        <ul>
-          {version === 1 ? (
-            <SuspenseList key="1" revealOrder="forwards">
-              <SuspenseList key="1.1" revealOrder="forwards">
-                <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-                  <C />
-                </Suspense>
-              </SuspenseList>
-            </SuspenseList>
-          ) : (
-            <SuspenseList key="1" revealOrder="forwards">
-              <SuspenseList key="1.1" revealOrder="forwards">
-                <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
-                  <A />
-                </Suspense>
-                <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
-                  <B />
-                </Suspense>
-                <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-                  <C />
-                </Suspense>
-              </SuspenseList>
-            </SuspenseList>
-          )}
-        </ul>
-      </div>
-      <div>
-        Rendering outside of <code>SuspenseList</code> with simple{" "}
-        <code>Suspense</code>:
-      </div>
-      <div>
-        Help to visually check which <code>Components</code> are already
-        resolved
-      </div>
-      <ul>
+    <>
+      <SuspenseList key="1.1" revealOrder="forwards">
+        <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+          <C />
+        </Suspense>
         <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
           <A />
         </Suspense>
         <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
           <B />
         </Suspense>
-        <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
-          <C />
-        </Suspense>
-      </ul>
-    </div>
+      </SuspenseList>
+      <CodeBlock>{`<SuspenseList key="1.1" revealOrder="forwards">
+  <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+    <C />
+  </Suspense>
+  <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
+    <A />
+  </Suspense>
+  <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
+    <B />
+  </Suspense>
+</SuspenseList>`}</CodeBlock>
+    </>
   );
 }
 
-function ScenarioC() {
+function NestedSuspenseList({ version }) {
+  if (version === 1) {
+    return (
+      <>
+        <SuspenseList key="1" revealOrder="forwards">
+          <SuspenseList key="1.1" revealOrder="forwards">
+            <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+              <C />
+            </Suspense>
+          </SuspenseList>
+        </SuspenseList>
+        <CodeBlock>{`<SuspenseList key="1" revealOrder="forwards">
+  <SuspenseList key="1.1" revealOrder="forwards">
+    <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+      <C />
+    </Suspense>
+  </SuspenseList>
+</SuspenseList>`}</CodeBlock>
+      </>
+    );
+  }
+  return (
+    <>
+      <SuspenseList key="1" revealOrder="forwards">
+        <SuspenseList key="1.1" revealOrder="forwards">
+          <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+            <C />
+          </Suspense>
+          <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
+            <A />
+          </Suspense>
+          <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
+            <B />
+          </Suspense>
+        </SuspenseList>
+      </SuspenseList>
+      <CodeBlock>{`<SuspenseList key="1" revealOrder="forwards">
+  <SuspenseList key="1.1" revealOrder="forwards">
+    <Suspense key="1.1.c" fallback={<Text text="Loading C" />}>
+      <C />
+    </Suspense>
+    <Suspense key="1.1.a" fallback={<Text text="Loading A" />}>
+      <A />
+    </Suspense>
+    <Suspense key="1.1.b" fallback={<Text text="Loading B" />}>
+      <B />
+    </Suspense>
+  </SuspenseList>
+</SuspenseList>`}</CodeBlock>
+    </>
+  );
+}
+
+function PageContent() {
   const [version, setVersion] = React.useState(1);
 
   const [, setC] = React.useState(0);
@@ -72,54 +111,27 @@ function ScenarioC() {
     setC(c => c + 1);
   };
 
-  // Counterexample: [
-  //  {"key":"fd","item":[
-  //    {"key":"08","item":[
-  //      {"key":"81","item":{"value":"3","renderPhase":"b only"}},  // we called it A
-  //      {"key":"dd","item":{"value":"c","renderPhase":"b only"}},  // we called it B
-  //      {"key":"53","item":{"value":"0","renderPhase":"both"}}     // we called it C
-  //    ]}
-  //  ]},Scheduler`
-  // -> [task#1] promise resolved with value "0"
-  // -> [task#4] sequence:: resolved
-  // -> [task#2] promise resolved with value "3"
-  // -> [task#3] promise pending`]
-  //
-  // Shrunk 0 time(s)
-  // Got error: Error: expect(received).toEqual(expected) // deep equality
-  //
-  // - Expected
-  // + Received
-  //
-  // @@ -1,8 +1,8 @@
-  //   <React.Fragment>
-  //     <span>
-  // -     3
-  // +     Loading 3
-  //     </span>
-  //     <span>
-  //       Loading c
-  //     </span>
-  //     <span>
-
   return (
-    <div>
-      <div>
-        Scenario is:
-        <ul>
-          <li>
-            Click on <em>Resolve C</em>
-          </li>
-          <li>
-            Click on <em>See second page</em>
-          </li>
-          <li>
-            Click on <em>Resolve A</em>
-          </li>
-        </ul>
-        <p>Got: Loading A / Loading B / C</p>
-        <p>Expected: A / Loading B / C</p>
-      </div>
+    <>
+      <h1>
+        Inconsistencies between nested SuspenseList and single SuspenseList
+      </h1>
+      <h2>Steps to reproduce:</h2>
+      <ul>
+        <li>
+          Click on <em>Resolve C</em>
+        </li>
+        <li>
+          Click on <em>Resolve A</em>
+        </li>
+        <li>
+          Click on <em>See second page</em>
+        </li>
+      </ul>
+      <p>Nested: C / Loading A / Loading B</p>
+      <p>Not Nested: C / A / Loading B</p>
+
+      <h2>Actions:</h2>
       <div>
         <button disabled={A.isResolved()} onClick={withRerender(A.resolve)}>
           Resolve A
@@ -134,11 +146,18 @@ function ScenarioC() {
           See second page
         </button>
       </div>
-      <br />
-      <div>
-        <CompoWithSuspense version={version} />
+
+      <div style={{ display: "flex" }}>
+        <div style={{ flexGrow: 1 }}>
+          <h2>Nested SuspenseList</h2>
+          <NestedSuspenseList version={version} />
+        </div>
+        <div style={{ flexGrow: 1 }}>
+          <h2>Non nested SuspenseList</h2>
+          <NoNestedSuspenseList version={version} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
@@ -147,7 +166,7 @@ function App() {
     <>
       <div style={{ display: "flex" }}>
         <div style={{ flexGrow: 1 }}>
-          <ScenarioC />
+          <PageContent />
         </div>
       </div>
       <div style={{ textAlign: "center", margin: "2em" }}>
@@ -176,8 +195,19 @@ function App() {
 
 export default App;
 
+function CodeBlock(props) {
+  return (
+    <textarea
+      rows={12}
+      style={{ width: "100%" }}
+      value={props.children}
+      readOnly={true}
+    />
+  );
+}
+
 function Text(props) {
-  return <li>{props.text}</li>;
+  return <p>{props.text}</p>;
 }
 
 function createAsyncText(text) {
