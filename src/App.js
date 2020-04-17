@@ -1,7 +1,7 @@
 import React, { Suspense, SuspenseList } from "react";
 
-const A = createAsyncText("A");
-const B = createAsyncText("B");
+const A = createText("A");
+const B = createText("B");
 const C = createAsyncText("C");
 
 function NoNestedSuspenseList({ version }) {
@@ -106,9 +106,9 @@ function PageContent() {
   const [version, setVersion] = React.useState(1);
 
   const [, setC] = React.useState(0);
-  const withRerender = f => () => {
+  const withRerender = (f) => () => {
     f();
-    setC(c => c + 1);
+    setC((c) => c + 1);
   };
 
   return (
@@ -116,29 +116,26 @@ function PageContent() {
       <h1>
         Inconsistencies between nested SuspenseList and single SuspenseList
       </h1>
+      <p>
+        In the following example both <code>&lt;A /&gt;</code> and{" "}
+        <code>&lt;B /&gt;</code> are not lazy loaded components.
+      </p>
+      <p>
+        On the contrary <code>&lt;C /&gt;</code> is alazy loaded component.
+      </p>
+      <p>
+        In order to simulate its load you can click on the button "Resolve C".
+      </p>
       <h2>Steps to reproduce:</h2>
       <ul>
-        <li>
-          Click on <em>Resolve A</em>
-        </li>
-        <li>
-          Click on <em>Resolve B</em>
-        </li>
         <li>
           Click on <em>See second page</em>
         </li>
       </ul>
       <p>Nested: A / Loading B / Loading C</p>
       <p>Not Nested: A / B / Loading C</p>
-
       <h2>Actions:</h2>
       <div>
-        <button disabled={A.isResolved()} onClick={withRerender(A.resolve)}>
-          Resolve A
-        </button>
-        <button disabled={B.isResolved()} onClick={withRerender(B.resolve)}>
-          Resolve B
-        </button>
         <button disabled={C.isResolved()} onClick={withRerender(C.resolve)}>
           Resolve C
         </button>
@@ -146,7 +143,6 @@ function PageContent() {
           See second page
         </button>
       </div>
-
       <div style={{ display: "flex" }}>
         <div style={{ flexGrow: 1 }}>
           <h2>Nested SuspenseList</h2>
@@ -175,11 +171,8 @@ function App() {
           https://github.com/dubzzz/react-suspenselist-bug/
         </a>
         <br />
-        <a href="https://github.com/facebook/react/issues/17515#issuecomment-561418297">
-          Version 2
-        </a>
-        , previous version of the page available{" "}
-        <a href="https://dubzzz.github.io/react-suspenselist-bug/build-v1/">
+        Version 3, previous version of the page available{" "}
+        <a href="https://dubzzz.github.io/react-suspenselist-bug/build-v2/">
           here
         </a>
       </div>
@@ -210,16 +203,22 @@ function Text(props) {
   return <p>{props.text}</p>;
 }
 
+function createText(text) {
+  return function () {
+    return <Text text={text} />;
+  };
+}
+
 function createAsyncText(text) {
   let resolved = false;
-  let Component = function() {
+  let Component = function () {
     if (!resolved) {
       throw promise;
     }
     return <Text text={text} />;
   };
-  let promise = new Promise(resolve => {
-    Component.resolve = function() {
+  let promise = new Promise((resolve) => {
+    Component.resolve = function () {
       resolved = true;
       return resolve();
     };
