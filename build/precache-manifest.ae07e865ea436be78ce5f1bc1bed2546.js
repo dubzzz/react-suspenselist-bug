@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d1b71eef0b564e8b83de4804bb9f4cc9",
+    "revision": "c7a6f7ee1e20db911ef93074af4700de",
     "url": "/react-suspenselist-bug/build/index.html"
   },
   {
-    "revision": "57a7b65fd9b75ee15340",
-    "url": "/react-suspenselist-bug/build/static/js/2.8e3aebd5.chunk.js"
+    "revision": "f1acbd41a270e7874795",
+    "url": "/react-suspenselist-bug/build/static/js/2.b7ece6f7.chunk.js"
   },
   {
     "revision": "4700234017efadd531e2",
