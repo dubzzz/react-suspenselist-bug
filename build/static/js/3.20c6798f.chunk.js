@@ -1,0 +1,2 @@
+(this["webpackJsonpreact-suspenselist-bug"]=this["webpackJsonpreact-suspenselist-bug"]||[]).push([[3],{13:function(e,t,n){"use strict";n.r(t),n.d(t,"default",(function(){return r}));var s=n(0),u=n.n(s);function r(){return u.a.createElement("div",null,"C")}}}]);
+//# sourceMappingURL=3.20c6798f.chunk.js.map

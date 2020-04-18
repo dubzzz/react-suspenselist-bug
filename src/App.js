@@ -16,6 +16,9 @@ export default function App() {
       <button onClick={() => setSecondPage(true)} disabled={secondPage}>
         Update
       </button>
+      <p>
+        <b>Nested</b>
+      </p>
       {!secondPage ? (
         <SuspenseList key="1" revealOrder="forwards">
           <SuspenseList key="1.1" revealOrder="forwards">
@@ -37,6 +40,28 @@ export default function App() {
               <C />
             </Suspense>
           </SuspenseList>
+        </SuspenseList>
+      )}
+      <p>
+        <b>Not Nested</b>
+      </p>
+      {!secondPage ? (
+        <SuspenseList key="1.1" revealOrder="forwards">
+          <Suspense key="1.1.a" fallback={<div>Loading A</div>}>
+            <A />
+          </Suspense>
+        </SuspenseList>
+      ) : (
+        <SuspenseList key="1.1" revealOrder="forwards">
+          <Suspense key="1.1.a" fallback={<div>Loading A</div>}>
+            <A />
+          </Suspense>
+          <Suspense key="1.1.b" fallback={<div>Loading B</div>}>
+            <B />
+          </Suspense>
+          <Suspense key="1.1.c" fallback={<div>Loading C</div>}>
+            <C />
+          </Suspense>
         </SuspenseList>
       )}
       <div style={{ marginTop: "2em" }}>

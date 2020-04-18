@@ -1,18 +1,20 @@
 {
   "files": {
-    "main.js": "/react-suspenselist-bug/build/static/js/main.0a0bdfde.chunk.js",
-    "main.js.map": "/react-suspenselist-bug/build/static/js/main.0a0bdfde.chunk.js.map",
-    "runtime-main.js": "/react-suspenselist-bug/build/static/js/runtime-main.01110886.js",
-    "runtime-main.js.map": "/react-suspenselist-bug/build/static/js/runtime-main.01110886.js.map",
-    "static/js/2.b7ece6f7.chunk.js": "/react-suspenselist-bug/build/static/js/2.b7ece6f7.chunk.js",
-    "static/js/2.b7ece6f7.chunk.js.map": "/react-suspenselist-bug/build/static/js/2.b7ece6f7.chunk.js.map",
+    "main.js": "/react-suspenselist-bug/build/static/js/main.86b1a5ef.chunk.js",
+    "main.js.map": "/react-suspenselist-bug/build/static/js/main.86b1a5ef.chunk.js.map",
+    "runtime-main.js": "/react-suspenselist-bug/build/static/js/runtime-main.3dd112a7.js",
+    "runtime-main.js.map": "/react-suspenselist-bug/build/static/js/runtime-main.3dd112a7.js.map",
+    "static/js/2.8ec65354.chunk.js": "/react-suspenselist-bug/build/static/js/2.8ec65354.chunk.js",
+    "static/js/2.8ec65354.chunk.js.map": "/react-suspenselist-bug/build/static/js/2.8ec65354.chunk.js.map",
+    "static/js/3.20c6798f.chunk.js": "/react-suspenselist-bug/build/static/js/3.20c6798f.chunk.js",
+    "static/js/3.20c6798f.chunk.js.map": "/react-suspenselist-bug/build/static/js/3.20c6798f.chunk.js.map",
     "index.html": "/react-suspenselist-bug/build/index.html",
-    "precache-manifest.ae07e865ea436be78ce5f1bc1bed2546.js": "/react-suspenselist-bug/build/precache-manifest.ae07e865ea436be78ce5f1bc1bed2546.js",
+    "precache-manifest.6e4632491f3cfc80014e3456e6da0c51.js": "/react-suspenselist-bug/build/precache-manifest.6e4632491f3cfc80014e3456e6da0c51.js",
     "service-worker.js": "/react-suspenselist-bug/build/service-worker.js"
   },
   "entrypoints": [
-    "static/js/runtime-main.01110886.js",
-    "static/js/2.b7ece6f7.chunk.js",
-    "static/js/main.0a0bdfde.chunk.js"
+    "static/js/runtime-main.3dd112a7.js",
+    "static/js/2.8ec65354.chunk.js",
+    "static/js/main.86b1a5ef.chunk.js"
   ]
 }

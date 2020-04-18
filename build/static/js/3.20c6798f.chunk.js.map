@@ -1,0 +1,1 @@
+{"version":3,"sources":["C.js"],"names":["C"],"mappings":"uIAAA,mEACe,SAASA,IACtB,OAAO","file":"static/js/3.20c6798f.chunk.js","sourcesContent":["import React from \"react\";\nexport default function C() {\n  return <div>C</div>;\n}\n"],"sourceRoot":""}
