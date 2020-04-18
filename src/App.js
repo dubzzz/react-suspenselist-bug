@@ -74,7 +74,14 @@ export default function App() {
         Issue discovered thanks to{" "}
         <a href="https://github.com/dubzzz/fast-check/">
           <b>fast-check</b>
-        </a>
+        </a>{" "}
+        -{" "}
+        <i>
+          see{" "}
+          <a href="https://github.com/dubzzz/react/commit/e2cb4776ea3634fab2021d83cb8259bde03c0f3a">
+            dubzzz@e2cb477
+          </a>
+        </i>
       </div>
     </div>
   );
